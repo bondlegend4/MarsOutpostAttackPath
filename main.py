@@ -28,15 +28,16 @@ for node in nodes_data[1:]:  # Skip the header
     node_id, node_label = node[0], node[1]
     G.add_node(node_id, label=node_label)
 
-# Add edges to the graph with edge labels
+# Add edges to the graph with attributes
 for edge in edges_data[1:]:  # Skip the header
-    source, target, edge_label = edge[0], edge[1], edge[2]
-    G.add_edge(source, target, label=edge_label)
+    source, target, edge_attack, edge_mediation, edge_mediation_boolean = edge
+    G.add_edge(source, target, edge_attack=edge_attack, edge_mediation=edge_mediation, edge_mediation_boolean=edge_mediation_boolean)
 
 # Draw the graph
 pos = nx.spring_layout(G)  # Layout for visualization
 labels = nx.get_node_attributes(G, 'label')
-edge_labels = nx.get_edge_attributes(G, 'label')
+edge_labels = {(source, target): f"Attack: {attr['edge_attack']}\nMediation: {attr['edge_mediation']}\nMediated: {attr['edge_mediation_boolean']}"
+               for source, target, attr in G.edges(data=True)}
 
 plt.figure(figsize=(12, 8))
 nx.draw(G, pos, with_labels=True, labels=labels, node_size=3000, node_color='lightblue', font_size=10, font_weight='bold', arrows=True)
