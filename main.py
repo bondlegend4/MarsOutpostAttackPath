@@ -39,9 +39,9 @@ labels = {node: f"{attr['label']}\nMITRE ATT&CK: {attr['mitre_attack']}" for nod
 edge_labels = {(source, target): f"Attack: {attr['edge_attack']}\nMediation: {attr['edge_mediation']}\nMediated: {attr['edge_mediation_boolean']}"
                for source, target, attr in G.edges(data=True)}
 
-plt.figure(figsize=(12, 8))
+plt.figure(figsize=(14, 10))
 nx.draw(G, pos, with_labels=True, labels=labels, node_size=3000, node_color='lightblue', font_size=10, font_weight='bold', arrows=True)
-nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color='red')
+nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color='red', rotate=False)
 
 plt.title("Mars Outpost Attack Path Tree")
 plt.show()
