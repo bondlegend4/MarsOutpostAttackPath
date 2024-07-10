@@ -25,8 +25,8 @@ G = nx.DiGraph()
 
 # Add nodes to the graph
 for node in nodes_data[1:]:  # Skip the header
-    node_id, node_label = node[0], node[1]
-    G.add_node(node_id, label=node_label)
+    node_id, node_label, mitre_attack = node[0], node[1], node[2]
+    G.add_node(node_id, label=node_label, mitre_attack=mitre_attack)
 
 # Add edges to the graph with attributes
 for edge in edges_data[1:]:  # Skip the header
@@ -35,7 +35,7 @@ for edge in edges_data[1:]:  # Skip the header
 
 # Draw the graph
 pos = nx.spring_layout(G)  # Layout for visualization
-labels = nx.get_node_attributes(G, 'label')
+labels = {node: f"{attr['label']}\nMITRE ATT&CK: {attr['mitre_attack']}" for node, attr in G.nodes(data=True)}
 edge_labels = {(source, target): f"Attack: {attr['edge_attack']}\nMediation: {attr['edge_mediation']}\nMediated: {attr['edge_mediation_boolean']}"
                for source, target, attr in G.edges(data=True)}
 
