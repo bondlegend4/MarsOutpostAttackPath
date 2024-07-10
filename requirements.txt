@@ -4,6 +4,7 @@ ezodf==0.3.2
 fonttools==4.53.1
 importlib_resources==6.4.0
 kiwisolver==1.4.5
+lxml==5.2.2
 matplotlib==3.9.1
 networkx==3.2.1
 numpy==2.0.0
